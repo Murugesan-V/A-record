@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <body >
+  <div id="new_entry_button" class="d-flex justify-content-end">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  New Entry
+  </button>
+  </div>
+
+  <table id="atable" class="table table-hover  table-bordered" cellspacing="0" width="100%">
+
+    <thead class='thead-dark'>
+      <tr >
+        <th>Id</th>
+        <th>Domain Name</th>
+        <th>Redirect Url</th>
+        <th>Region</th>
+        <th>updated date</th>
+        <th>comment</th>
+        <th>user</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in datas %}
+        <tr  id= {{ data.id }} >
+          <td>{{ data.id }}</td>
+          <td>{{ data.domain_name }}</td>
+          <td>{{ data.redirect_url }}</td>
+          <td>{{ data.region }}</td>
+          <td>{{ data.updated_date }}</td>
+          <td>{{ data.comment }}</td>
+          <td>{{ data.user }}</td>
+          <td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button></td>
+          <td><button type="button" data={{data.id}} class="btn btn-danger" id='btn-del'>Delete</button></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-center bg-warning">No Rrecord</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" id='data-form'>
+      {% csrf_token %}
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Adding New Record</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+		<div class="modal-body">
+          <div class="form-group">
+            <label>Domain Name:</label>
+            <input type="text" name="" id="domain_name"  class="form-control" placeholder="domain name">
+            <div  id="error1"><h7>**Fill the domain name</h7></div>
+          </div>
+      </div>
+      
+
+      <div class="modal-body">
+          <div class="form-group">
+            <label>Redirect Url:</label>
+            <input type="text" name="" id="redirect_url"  class="form-control" placeholder="Redirect Url">
+            <div hidden=""  id="error2"><h7>**Fill the redirect url</h7></div>
+          </div>
+      </div>
+      
+      <div class="modal-body">
+          <div class="form-group">
+            <label>Region:</label>
+            <input type="text" name="" id="region"  class="form-control" placeholder="Region">
+            <div hidden="" id="error3"><h7>**Fill the region</h7></div>
+          </div>
+      </div>
+      
+     
+       <div class="modal-body">
+          <div class="form-group">
+            
+			<input type="radio" id="http" name="port" value="http" >http
+			<input type="radio" id="https" name="port" value="https" checked>https
+			
+          </div>
+      </div>
+	  
+ 	<div  id="form"  class="modal-body" >
+          <div class="form-group">
+			<textarea class="form-control" id="certificate" rows="3"></textarea><br>
+			<div hidden=""  id="error4"><h7>**Fill the Certificate</h7></div>
+			<textarea class="form-control" id="pub_key" rows="3"></textarea><br>
+			<div  hidden="" id="error5"><h7>**Fill the Public key</h7></div>
+            <textarea class="form-control" id="chain_key" rows="3"></textarea><br>
+            <div hidden id="error6"><h7>**Fill the Chain key</h7></div>
+  		</div>
+			</div>
+       
+       
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="submit_btn" type="submit" class="btn btn-danger " >Submit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/toggle.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/add_record.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/delete.js' %}"></script>
+{% endblock %}
+</body>

@@ -1,0 +1,31 @@
+#new_entry_button{
+
+margin-top: 30px;
+margin-bottom: 10px;
+
+}
+
+#nav_link{
+
+	margin-left:75%;
+
+}
+
+.navbar-brand{
+	
+	margin-left: 3%
+
+}
+#login_view{
+	margin-right: 50%;
+}
+
+.navbar-nav{
+	    margin-bottom: 3px;
+}
+
+
+.dataTables_filter{
+	margin-bottom: 20px !important;
+}
+

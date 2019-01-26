@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block context %}
+ 	<h2>upload data {% if user.is_authinticated %} {{user.username}} {%else%} visitor {% endif %} </h2>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+
+{% block context %}
+	
+	<h2>Data Table </h2>
+<table id=test class="table table-hover table-sm table-bordered">
+  <thead class="thead-dark">
+<tr>
+<th>Id</th><th>Domain_name</th><th>Redirect_to_url</th><th>Region</th><th>Request_path</th><th>Edit</th><th>Delete</th></tr>
+{% for record in a %}
+    <tr id={{ record.0 }}>
+	<td >{{ record.0 }}</td>
+	<td id="{{ record.0 }}_domain_name">  {{record.1}} </td>
+	<td> {{record.2}} </td>
+	<td> {{record.3}}  </td>
+	<td> {{record.5}}</td> 
+   <td> <button id ="btn-edit" data={{ record.0 }}  type="button" class="btn btn-primary edit " data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
+   <td> <button id="btn-del" data={{ record.0 }} type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button></td></tr> </td> </tr>
+{% endfor %}
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+	<div class="form-group">
+                        <label for="inputName">Domain Name</label>
+                        <input type="text" class="form-control" id="domain_name" placeholder="Enter your name"/>
+                    </div>
+	<div class="form-group">
+                        <label for="inputName">Redirect_to_url</label>
+                        <input type="text" class="form-control" id="redirect_url" placeholder="Enter your name"/>
+                    </div>
+	<div class="form-group">
+                        <label for="inputName">Region</label>
+                        <input type="text" class="form-control" id="region" placeholder="Enter your name"/>
+                    </div>
+    
+  </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+	<button id="btn1"  type="button" class="btn btn-primary">Save changes</button>
+        <button id="btn2"type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+</table>
+<script>
+
+$(function() {
+  var trid;
+  $('.edit').click(function() {
+       trid = $(this).attr('data'); // table row ID
+       var domain_name=$('#'+trid+'_domain_name').html();
+       $('#domain_name').val(domain_name);
+}) });
+
+
+$(function() {
+  var trid;
+  $('#test #btn-del').click(function() {
+       trid = $(this).attr('data'); // table row ID 
+       alert(trid);
+       $.ajax({
+	url:"delete/"+trid+"/",
+	data:{csrfmiddlewaretoken: '{{ csrf_token }}'},
+	type:"POST",
+	dataType:"json",
+	success: function (data) {
+		alert(data.message)}
+       //$.post("/delete/"+trid,{csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data, status){
+	//    alert("Status: " + status);
+  });
+})
+  })
+
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+	<!DOCTYPE html>
+<html>
+<head>
+	<title> Arecord </title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/style.css">
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+
+
+</head>
+
+<body style="background-color:aliceblue	;">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<!-- Brand/logo -->
+		<a class="navbar-brand active" href="#"><h4>A<small>Record</small></h4></a>
+
+		<!-- Links -->
+	<div id="nav_link">	
+		<ul class="navbar-nav ml-auto" >
+
+	{% if user.is_authenticated %} 
+				<li class="nav-item">
+			<a class="nav-link active" href="{% url 'logout' %}"><strong>logout</strong></a>
+		</li>
+	{% else %}
+		<li class="nav-item">
+			<a class="nav-link active" href= "{% url 'login' %}"><strong>Log In</strong></a>
+		</li>
+		</ul>
+	{% endif %} 
+	</div>
+	</nav>
+
+	<div class="container">
+		<p align="right">  <strong>{% if user.is_authenticated %}logged in as user:{{ user.username }}{% else %}Log In : visitor{% endif %}</strong></p>
+		{% block content %}
+		{% endblock %}
+	</div>
+	
+	{% block javascript %}
+	{% endblock %}
+
+</body>
+</html>

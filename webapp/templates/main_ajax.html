@@ -1,0 +1,116 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body>
+
+<div id="new_entry_button" class="d-flex justify-content-end">
+  <button id="entry-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  New Entry
+  </button>
+</div>
+
+  <table id="atable" class="table table-hover  table-bordered" cellspacing="0" width="100%">
+
+    <thead class='thead-dark'>
+      <tr >
+        <th>Id</th>
+        <th>Domain Name</th>
+        <th>Redirect Url</th>
+        <th>Region</th>
+        <th>Protocol</th>
+        <th>Updated_date</th>
+        <th>User</th>
+        <th>Comments</th>
+        <th>Edit</th>
+        <th>Delete</th>
+         </tr>
+    </thead>
+
+  </table>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" id='data-form' name='entryform'>
+      {% csrf_token %}
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Adding New Record</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Domain Name:</label>
+            <input type="text"  id="domain_name"  class="form-control"  placeholder="domain name" required>
+            <div  id="error1"><h7>**Fill the domain name</h7></div>
+          </div>
+      </div>
+      
+
+      <div class="modal-body">
+          <div class="form-group">
+            <label>Redirect Url:</label>
+            <input type="text"  id="redirect_url"  class="form-control" placeholder="Redirect Url" required>
+            <div hidden=""  id="error2"><h7>**Fill the redirect url</h7></div>
+          </div>
+      </div>
+      
+      <div class="modal-body">
+          <div class="form-group">
+            <label>Region:</label>
+            <input type="text"  id="region"  class="form-control" placeholder="Region" required>
+            <div hidden="" id="error3"><h7>**Fill the region</h7></div>
+          </div>
+      </div>
+      
+     
+       <div class="modal-body">
+          <div class="form-group">
+            
+            <input type="radio" id="http" name="port" value="http" >http
+            <input type="radio" id="https" name="port" value="https" checked>https
+            
+          </div>
+      </div>
+      
+    <div  id="form"  class="modal-body" >
+          <div class="form-group">
+            <textarea class="form-control" id="certificate" rows="3" placeholder="SSL Certificate" ></textarea><br>
+            <div hidden=""  id="error4"><h7>**Fill the Certificate</h7></div>
+            <textarea class="form-control" id="pub_key" rows="3" placeholder="Public Key" ></textarea><br>
+            <div  hidden="" id="error5"><h7>**Fill the Public key</h7></div>
+            <textarea class="form-control" id="chain_key" rows="3" placeholder="Chain Key" ></textarea><br>
+            <div hidden id="error6"><h7>**Fill the Chain key</h7></div>
+        </div>
+            </div>
+       
+       
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="edit_btn" type="button" class="btn btn-danger " >Edit</button>
+        <button id="submit_btn" type="submit" class="btn btn-danger " >Submit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+<script type="text/javascript" src="{% static 'js/toggle.js' %}"></script>
+
+<script src="{% static 'js/ajax_entry.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/ajax_delete.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/ajax_datatable.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/ajax_edit.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/validation.js' %}" type="text/javascript"></script>
+</body>
+
+
+{% endblock %}
